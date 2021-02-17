@@ -19,7 +19,7 @@ class Book(models.Model):
     type was_published: date object
 
     '''
-    name = models.CharField(max_length=128)
+    name = models.CharField(max_length=128, db_index=True)
     slug = models.SlugField(max_length=24, primary_key=True)
     author = models.CharField(max_length=128)
     was_buplished = models.DateField()
@@ -106,10 +106,10 @@ class Alias(models.Model):
     param objects: Helpful pointer to manager class
     type objects: AliasManager obj
     '''    
-    alias = models.CharField(max_length=128)
+    alias = models.CharField(max_length=128, db_index=True)
     target = models.ForeignKey(Book, on_delete=models.PROTECT, related_name='get_books')
-    start = models.DateTimeField()
-    end = models.DateTimeField(default=None)
+    start = models.DateTimeField(editable=True)
+    end = models.DateTimeField(default=None, editable=True)
     objects = AliasManager()
 
     
@@ -156,6 +156,11 @@ class Alias(models.Model):
                     result.append(alias)
         return result        
    
+
+        def alias_replace(existing_alias, replace_at, new_alias_value):
+            '''
+            '''
+            
 
     class Meta:
         '''
