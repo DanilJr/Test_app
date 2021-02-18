@@ -8,4 +8,4 @@ To start just enter following comands in comand-line:
 2. cd Test_app
 3. pip install pip install -r requirements.txt
 4. cd app
-5. python manage.py runserver(python3 manage.py run server on Linux)
+5. python manage.py runserver(python3 manage.py runserver- on Linux) to start server or you can enter python manage.py shell(python3 manage.py shell- on Linux) to manipulate Alias objects(create, update, etc)
