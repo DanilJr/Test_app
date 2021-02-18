@@ -109,7 +109,7 @@ class Alias(models.Model):
     alias = models.CharField(max_length=128, db_index=True)
     target = models.ForeignKey(Book, on_delete=models.PROTECT, related_name='get_books')
     start = models.DateTimeField(editable=True)
-    end = models.DateTimeField(default=None, editable=True)
+    end = models.DateTimeField(default=None, editable=True, null=True)
     objects = AliasManager()
 
     
@@ -156,11 +156,26 @@ class Alias(models.Model):
                     result.append(alias)
         return result        
    
-
-        def alias_replace(existing_alias, replace_at, new_alias_value):
-            '''
-            '''
-            
+   
+    @staticmethod 
+    def alias_replace(id_existing_alias, replace_at, new_alias_value):
+        '''
+        This method replaces an existing alias with a new one at a specific time point
+        param id_existing_alias: id of existing alias
+        type id_existing_alias: int
+        param replace_at: start date time we are need to chenge
+        type replace_at: datetime obj
+        param new_alias_value: alias value we are need to chenge
+        type new_alias_value: str
+        :return: Alias obj
+        '''
+        alias = Alias.objects.get(id=id_existing_alias)
+        alias.alias=new_alias_value
+        alias.start=replace_at
+        alias.end=None
+        alias.save()
+        return alias
+           
 
     class Meta:
         '''
